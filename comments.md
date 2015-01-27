@@ -35,4 +35,10 @@ The array is compatible with ZF2’s `AutoloaderFactory`.
 The **config** information is passed to the relevant components by the `ServiceManager`. We need **two** initial sections: **`controllers`** and **`view_manager`**.   
 The `controllers` section provides a list of all the controllers provided by the module. We will need **one** controller, `AlbumController`, which we’ll reference as `Album\Controller\Album`. The controller **key** must be unique across all modules, so we prefix it with our module name.
 
-Within the `view_manager` section, we add our `view` directory to the **`TemplatePathStack`** configuration. This will allow it to find the **view scripts** for the `Album` module that are stored in our `view/ directory`.
+Within the `view_manager` section, we add our `view` directory to the **`TemplatePathStack`** configuration.   
+This will allow it to find the **view scripts** for the `Album` module that are stored in our `view/ directory`.
+
+8
+--
+To inform the `ModuleManager` that this new `Album` module exists, we add the module name to the list of modules.
+
