@@ -3,7 +3,7 @@
 return array(
     'controllers' => array(
         'invokables' => array(
-            'Album\Controller\Album' => 'Album\Controller\AlbumController',
+            'Album\Controller\Album' => 'Album\Controller\AlbumController', // 12
         ),
     ),
 

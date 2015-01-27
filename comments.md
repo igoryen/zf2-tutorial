@@ -71,3 +71,6 @@ This route allows us to have the following URLs:
 The `constraints` section.   
 It allows us to ensure that the characters within a segment are as expected, so we have limited actions to starting with a letter and then subsequent characters only being alphanumeric, underscore or hyphen. We also limit the `id` to a number.
 
+12
+--
+to inform the `Album` module about the `Album` controller 
