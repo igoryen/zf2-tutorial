@@ -1,7 +1,0 @@
-1. We put this file, Module.php, in the of the module directory (module/Album). 
-  We put it here because the ModuleManager in Zend Framework 2 will look for it here.
-  It expects to find a class called Album\Module within it. 
-  It will load and configure a module.
-  That is, the classes within a given module will have the namespace of the module’s name, which is the directory name of the module.
-2. getAutoloaderConfig() (as well as getConfig()) will automatically be called by Zend's ModuleManager.
-3. getConfig() (as well as getAutoloaderConfig()) will automatically be called by Zend's ModuleManager.
