@@ -42,3 +42,32 @@ This will allow it to find the **view scripts** for the `Album` module that are 
 --
 To inform the `ModuleManager` that this new `Album` module exists, we add the module name to the list of modules.
 
+
+9
+--
+`segment` is the route's **type**
+
+10
+--
+`album` is the route's **name**.  
+The route ``/album[/:action][/:id]`` will match any URL that starts with `/album`.  
+`[/:action][/:id]` are the placeholders in the URL pattern. They will be mapped to named parameters in the matched route.  
+The **square brackets** indicate that a segment is **optional**.  
+`[/:action]` segment will be mapped to the optional action name.  
+`[/:id]` segment will be mapped to the optional id.  
+
+This route allows us to have the following URLs:
+
+    URL           Page                              Action
+	------------------------------------------------------
+    /album           Home (list of albums)	        index
+    /album/add	     Add new album	                add  
+    /album/edit/2	 Edit album with an id of 2	    edit  
+    /album/delete/4	 Delete album with an id of 4	delete  
+
+
+11
+--
+The `constraints` section.   
+It allows us to ensure that the characters within a segment are as expected, so we have limited actions to starting with a letter and then subsequent characters only being alphanumeric, underscore or hyphen. We also limit the `id` to a number.
+
