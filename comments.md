@@ -74,3 +74,40 @@ It allows us to ensure that the characters within a segment are as expected, so 
 12
 --
 to inform the `Album` module about the `Album` controller 
+
+13
+--
+Our `Album` entity object is a simple PHP class.
+
+14
+--
+The `exchangeArray()` method is used in order to work with Zend\Db’s `TableGateway` class.   
+This method simply copies the data from the passed in array to our entity’s properties. We will add an input filter for use with our form later.
+
+15
+--
+protected property `$tableGateway`
+
+16
+--
+we set the protected property `$tableGateway` to the `TableGateway` instance passed in the constructor. We will use this to perform operations on the database table for our albums.
+
+17
+--
+helper methods that our application will use to **interface** with the `TableGateway`.
+
+18
+--
+retrieves all albums rows from the database as a `ResultSet`
+
+19
+--
+retrieves a single row as an `Album` object
+
+20
+--
+either creates a new row in the database or updates a row that already exists
+
+21
+--
+removes the row completely
