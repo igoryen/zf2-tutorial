@@ -111,3 +111,42 @@ either creates a new row in the database or updates a row that already exists
 21
 --
 removes the row completely
+
+22
+--
+`getServiceConfig()`:  
+- it is automatically called by the `ModuleManager` and applied to the `ServiceManager`   
+- it provides a **factory** (**closure** or **callback**).  
+- if the `ServiceManager`	 needs an `AlbumTable` object the factory instantiates/creates it.  
+- the `ServiceManager` defines how to create a `AlbumTable` object because we need to always use the same instance of our `AlbumTable`.  
+-  If the `AlbumController` needs an `AlbumTable` object, it can be retrieved.
+
+23
+--
+`getServiceConfig()`:   
+- returns an array of factories  
+
+`ModuleManager` does the following:  
+1.  first it merges all the factories together  
+2.  and then passes them to the `ServiceManager`.  
+
+24
+--
+The factory for `Album\Model\AlbumTable`:  
+- Use the `ServiceManager` (`$sm`) to create an `AlbumTableGateway` object
+
+25
+--
+Pass the `AlbumTableGateway` object to the `AlbumTable` object.  
+
+26
+--
+Also tell the `ServiceManager` (`$sm`) that an `AlbumTableGateway` object is created:  
+- by getting a `Zend\Db\Adapter\Adapter` (also from the `ServiceManager`)   
+
+27
+--
+- and using it to create a `TableGateway` object.    
+  
+The `TableGateway` classes use the **prototype pattern** for creation of result sets and entities.   
+This means that instead of instantiating when required, the system clones a previously instantiated object. See PHP Constructor Best Practices and the Prototype Pattern for more details.

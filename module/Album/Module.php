@@ -26,5 +26,25 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface {
   public function getConfig() {
     return include __DIR__ . '/config/module.config.php';
   }
+  
+  // 22
+  public function getServiceConfig() {
+    // 23
+    return array(
+      'factories' => array(
+        'Album\Model\AlbumTable' => function($sm) {
+          $tableGateway = $sm->get('AlbumTableGateway'); // 24
+          $table = new AlbumTable($tableGateway); // 25
+          return $table;
+        },
+        'AlbumTableGateway' => function ($sm) {
+          $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter'); // 26
+          $resultSetPrototype = new ResultSet();
+          $resultSetPrototype->setArrayObjectPrototype(new Album());
+          return new TableGateway('album', $dbAdapter, null, $resultSetPrototype); // 27
+        },
+      ),
+    );
+  }
 
 }
