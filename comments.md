@@ -162,3 +162,9 @@ this factory, `Zend\Db\Adapter\AdapterServiceFactory`, will tell the `ServiceMan
 30
 --
 The database credentials: username and password
+
+31
+--
+`getAlbumTable()`:  
+- is called from within the controller when there's a need to interact with the model.  
+- to retrieve an `AlbumTable` created by the `ServiceManager`.
