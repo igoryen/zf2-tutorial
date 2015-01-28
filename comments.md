@@ -127,8 +127,8 @@ removes the row completely
 - returns an array of factories  
 
 `ModuleManager` does the following:  
-1.  first it merges all the factories together  
-2.  and then passes them to the `ServiceManager`.  
+- first it merges all the factories together  
+- and then passes them to the `ServiceManager`.  
 
 24
 --
@@ -150,3 +150,15 @@ Also tell the `ServiceManager` (`$sm`) that an `AlbumTableGateway` object is cre
   
 The `TableGateway` classes use the **prototype pattern** for creation of result sets and entities.   
 This means that instead of instantiating when required, the system clones a previously instantiated object. See PHP Constructor Best Practices and the Prototype Pattern for more details.
+
+28
+--
+configuring the `ServiceManager` so that it knows how to get a `Zend\Db\Adapter\Adapter`.
+
+29
+--
+this factory, `Zend\Db\Adapter\AdapterServiceFactory`, will tell the `ServiceManager` how to get a `Zend\Db\Adapter\Adapter`.
+
+30
+--
+The database credentials: username and password
