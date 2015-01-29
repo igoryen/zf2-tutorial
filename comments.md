@@ -168,3 +168,51 @@ The database credentials: username and password
 `getAlbumTable()`:  
 - is called from within the controller when there's a need to interact with the model.  
 - to retrieve an `AlbumTable` created by the `ServiceManager`.
+
+32
+--
+In order to list the albums, we need to **retrieve** them from the Album model and pass them to the view.  
+The **return value** is a `ViewModel` object.  
+It is used to set variables in the view.  
+`ViewModel`'s constructor's first parameter is an array from the action containing data we need. These data are then automatically passed to the view script.  
+The `ViewModel` object also allows us to change the view script that is used, but the default is to use `{controller name}/{action name}`. 
+
+33
+--
+`headTitle()` is a view helper:  
+- to set the page title and the title for the `<head>` section.
+
+34
+--
+`url(A,B)` is a view helper:  
+- to create the links we need  
+- we use our `'album'` route which is set up to accept two placeholder variables: `'action'` and `'id'`.  
+- `A`: the route name (`'album'`) we wish to use for construction of the URL  
+- `B`: an array of all the variables to fit into the placeholders to use. 
+
+35
+--
+display album's title
+
+36
+--
+display album's artist(s)
+
+37
+--
+A link to edit a row
+
+38
+--
+a link to delete a row
+
+39
+--
+A standard foreach: loop   
+the alternate form using a colon (`:`) and `endforeach;`   
+as it is easier to scan than to try and match up braces.
+
+40
+--
+`escapeHtml()` is a view helper   
+- to help protect ourselves from Cross Site Scripting (XSS) vulnerabilities
