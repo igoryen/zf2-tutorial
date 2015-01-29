@@ -1,46 +1,49 @@
 1
 --
-We put this file, `Module.php`, in the root of the module directory (`module/Album`). 
-  We put it here because the `ModuleManager` in Zend Framework 2 will look for it here.
-  It expects to find a class called `Album\Module` within it.   
+We put this file, `Module.php`, in the root of the **module** directory (`module/Album`).   
+  We put it here because this is where the `ModuleManager` in Zend Framework 2 will look for it.  
+  `ModuleManager` expects to find a class called `Album\Module` within it.   
   It will load and configure a module.  
   That is, the classes within a given module will have the namespace of the module’s name, which is the directory name of the module.  
 2
 --
  `getAutoloaderConfig()` (as well as `getConfig()`) will automatically be called by Zend's `ModuleManager`.  
+
 3 
 --
 `getConfig()` (as well as `getAutoloaderConfig()`) will automatically be called by Zend's `ModuleManager`.  
-This method simply loads the `config/module.config.php` file.
+This method simply **loads** the `config/module.config.php` file.
 
 4
 --
 returns an array.   
 The array is compatible with ZF2’s `AutoloaderFactory`. 
   We configure it so that we do the following:  
-   1) add a class map file (`autoload_classmap.php`) to the `ClassMapAutoloader` and also   
+   1) add a **class map file** (`autoload_classmap.php`) to the `ClassMapAutoloader` and also   
   2) add this module’s namespace to the `StandardAutoloader`. 
-  The standard autoloader requires a **namespace** and the path where to find the files for that namespace. It is **PSR-0** compliant and so classes map directly to files as per the PSR-0 rules.  
+  The **standard autoloader** requires a **namespace** and the path where to find the files for that namespace. It is **PSR-0** compliant and so **classes** map directly to **files** as per the PSR-0 rules.  
 
 5
 --
- we provide an empty array for the classmap autoloader because we are in development, and we don’t need to load files via the classmap 
+ we provide an empty array for the **classmap autoloader** because we are in development, and we don’t need to load files via the classmap 
  
 6
 --
- As this is an empty array, whenever the autoloader looks for a class within the `Album` namespace, it will fall back to the to `StandardAutoloader` for us.
+ As this is an empty array, whenever the **autoloader** looks for a class within the `Album` namespace, it will fall back to the to `StandardAutoloader` for us.
 
 7
 --
-The **config** information is passed to the relevant components by the `ServiceManager`. We need **two** initial sections: **`controllers`** and **`view_manager`**.   
-The `controllers` section provides a list of all the controllers provided by the module. We will need **one** controller, `AlbumController`, which we’ll reference as `Album\Controller\Album`. The controller **key** must be unique across all modules, so we prefix it with our module name.
+The `ServiceManager` passes the **config** information  to the relevant components.   
+We need **two** initial sections: **`controllers`** and **`view_manager`**.   
 
-Within the `view_manager` section, we add our `view` directory to the **`TemplatePathStack`** configuration.   
+- The `controllers` section provides a list of all the controllers provided by the module. We will need **one** controller, `AlbumController`, which we’ll reference as `Album\Controller\Album`. The controller **key** must be unique across all modules, so we prefix it with our module name.
+
+- Within the `view_manager` section, we add our `view` directory to the **`TemplatePathStack`** configuration.   
 This will allow it to find the **view scripts** for the `Album` module that are stored in our `view/ directory`.
 
 8
 --
-To inform the `ModuleManager` that this new `Album` module exists, we add the module name to the list of modules.
+We add the module name to the list of modules, to inform the `ModuleManager` that this new `Album` module exists.
 
 
 9
@@ -171,7 +174,7 @@ The database credentials: username and password
 
 32
 --
-In order to list the albums, we need to **retrieve** them from the Album model and pass them to the view.  
+In order to list the albums, we need to **retrieve** them from the `Album` model and pass them to the view.  
 The **return value** is a `ViewModel` object.  
 It is used to set variables in the view.  
 `ViewModel`'s constructor's first parameter is an array from the action containing data we need. These data are then automatically passed to the view script.  
@@ -180,37 +183,39 @@ The `ViewModel` object also allows us to change the view script that is used, bu
 33
 --
 `headTitle()` is a view helper:  
-- to set the page title and the title for the `<head>` section.
+- to set the **page title** and the title for the `<head>` section.
 
 34
 --
 `url(A,B)` is a view helper:  
-- to create the links we need  
+- to create the links we need.  
+The parameters:  
+- `A`: the route name we wish to use (*here* `'album'`) for construction of the URL  
+- `B`: an array of all the variables to fit into the placeholders to use.  
 - we use our `'album'` route which is set up to accept two placeholder variables: `'action'` and `'id'`.  
-- `A`: the route name (`'album'`) we wish to use for construction of the URL  
-- `B`: an array of all the variables to fit into the placeholders to use. 
+
 
 35
 --
-display album's title
+to display album's title
 
 36
 --
-display album's artist(s)
+to display album's artist(s)
 
 37
 --
-A link to edit a row
+A link to **edit** a row
 
 38
 --
-a link to delete a row
+a link to **delete** a row
 
 39
 --
-A standard foreach: loop   
-the alternate form using a colon (`:`) and `endforeach;`   
-as it is easier to scan than to try and match up braces.
+A standard `foreach:` loop   
+its alternate form using a colon (`:`) and `endforeach;`   
+- it is easier to scan than to try and match up braces.
 
 40
 --
