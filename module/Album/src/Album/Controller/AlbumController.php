@@ -11,8 +11,12 @@ class AlbumController extends AbstractActionController {
   
   // GET: /album
   public function indexAction() {
-    
+    // 32
+    return new ViewModel(array(
+      'albums' => $this->getAlbumTable()->fetchAll(),
+    ));
   }
+
   // GET: /album/add
   public function addAction() {
     

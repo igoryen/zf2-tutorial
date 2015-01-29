@@ -1,1 +1,53 @@
-hello!!!
+<?php
+$title = 'My albums';
+$this->headTitle($title); // 33
+?>
+<h1><?php 
+  echo $this->escapeHtml($title); // 40
+?></h1>
+<p>
+  <a href="<?php 
+    echo $this->url('album', array('action' => 'add')); // 34
+  ?>">Add new album</a>
+</p>
+
+<table class="table">
+  <tr>
+    <th>Title</th>
+    <th>Artist</th>
+    <th>&nbsp;</th>
+  </tr>
+  <?php 
+  foreach ($albums as $album) : // 39
+  ?>
+    <tr>
+      
+      <td><?php 
+        echo $this->escapeHtml($album->title); // 35
+    ?></td>
+      
+      <td><?php 
+        echo $this->escapeHtml($album->artist); // 36
+    ?></td>
+      
+      <td>
+        
+        <a href="<?php 
+          // 37
+          echo $this->url('album', array(
+            'action' => 'edit', 
+            'id' => $album->id));
+     ?>">Edit</a>
+        
+        <a href="<?php 
+          // 38
+          echo $this->url('album', array(
+            'action' => 'delete', 
+            'id' => $album->id));
+     ?>">Delete</a>
+        
+      </td>
+      
+    </tr>
+  <?php endforeach; ?>
+</table>
