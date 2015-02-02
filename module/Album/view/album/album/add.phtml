@@ -1,0 +1,21 @@
+<?php
+// module/Album/view/album/album/add.phtml:
+
+$title = 'Add new album';
+$this->headTitle($title);
+?>
+<h1><?php 
+  echo $this->escapeHtml($title); 
+?></h1>
+
+<?php
+// 66
+$form->setAttribute('action', $this->url('album', array('action' => 'add')));
+$form->prepare();
+
+echo $this->form()->openTag($form); // 67
+echo $this->formHidden($form->get('id')); // 70
+echo $this->formRow($form->get('title')); // 69
+echo $this->formRow($form->get('artist'));
+echo $this->formSubmit($form->get('submit')); // 71
+echo $this->form()->closeTag(); // 68

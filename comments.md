@@ -56,8 +56,9 @@ We add the module name to the list of modules, to inform the `ModuleManager` tha
 The route ``/album[/:action][/:id]`` will match any URL that starts with `/album`.  
 `[/:action][/:id]` are the placeholders in the URL pattern. They will be mapped to named parameters in the matched route.  
 The **square brackets** indicate that a segment is **optional**.  
-`[/:action]` segment will be mapped to the optional action name.  
-`[/:id]` segment will be mapped to the optional id.  
+
+- `[/:action]` segment will be mapped to the optional **action** name.  
+- `[/:id]` segment will be mapped to the optional **id**.  
 
 This route allows us to have the following URLs:
 
@@ -72,7 +73,7 @@ This route allows us to have the following URLs:
 11
 --
 The `constraints` section.   
-It allows us to ensure that the characters within a segment are as expected, so we have limited actions to starting with a letter and then subsequent characters only being alphanumeric, underscore or hyphen. We also limit the `id` to a number.
+It allows us to ensure that the characters within a segment are **as expected**, so we have limited actions to starting with a letter and then subsequent characters only being alphanumeric, underscore or hyphen. We also limit the `id` to a **number**.
 
 12
 --
@@ -84,7 +85,8 @@ Our `Album` entity object is a simple PHP class.
 
 14
 --
-The `exchangeArray()` method is used in order to work with Zend\Db’s `TableGateway` class.   
+The `exchangeArray()` method:  
+-  it is used in order to work with Zend\Db’s `TableGateway` class.   
 This method simply copies the data from the passed in array to our entity’s properties. We will add an input filter for use with our form later.
 
 15
@@ -221,3 +223,141 @@ its alternate form using a colon (`:`) and `endforeach;`
 --
 `escapeHtml()` is a view helper   
 - to help protect ourselves from Cross Site Scripting (XSS) vulnerabilities
+
+41
+--
+The `Zend\Form` component manages the form and form validation.
+
+42
+--
+as we call the parent’s constructor, we set the **name** of the form.
+
+43
+--
+Create 4 form elements: the **id**, **title**, **artist**, and **submit** button. For each item we set various attributes and options, including the label to be displayed.
+
+44
+--
+input filter
+add it to the `Album` class
+We also need to set up validation for this form. In Zend Framework 2 this is done using an input filter, which can either be standalone or defined within any class that implements
+
+45
+--
+One of the 2 methods defined by `InputFilterAwareInterface `
+
+46
+--
+One of the 2 methods defined by `InputFilterAwareInterface `
+
+47
+--
+We simply throw an exception in `setInputFilter()` because we only need to implement `getInputFilter()`.
+
+48
+--
+Instantiate `InputFilter`
+
+49
+--
+add the inputs that we require.  
+We add one input for each property that we wish to filter or validate.
+
+50
+--
+For the **id** field:  
+we only need integers in this field, so we add an `Int` filter for it.
+
+51
+--
+This is a text field  
+Here we need to remove unwanted HTML and unnecessary white space, so we add 2 **filters**: `StripTags` and `StringTrim`
+
+
+52
+--
+to report error when the field is left empty
+
+53
+--
+`StringLength` validator   
+- ensures that the user doesn’t enter more characters than we can store into the database.
+
+54
+--
+Filter: `StripTags`  
+	
+- removes unwanted HTML
+ 
+55
+--
+Filter: `StringTrim`   
+
+- removes unnecessary white space
+
+56
+--
+We instantiate `AlbumForm`
+
+57
+--
+set the submit button's label to string “Add”.  
+We do this here as we’ll want to re-use the form when editing an album and will use a different label.
+
+58
+--
+if the form has been submitted
+
+59
+--
+set the form’s input filter from an **album** instance.
+
+60
+--
+set the posted data to the form
+
+61
+--
+Use the `AlbumForm->isValid()` to check to see if the POSTed data is **valid** 
+
+62
+--
+grab the data from the form
+
+63
+--
+store to the model using `saveAlbum()`.
+
+64
+--
+After we have saved the new `album` row, we use the Redirect controller plugin redirect back to the list of albums.
+
+65
+--
+Finally, we return the variables that we want assigned to the view. In this case, just the form object.  
+Note that Zend Framework 2 also allows you to simply return an array containing the variables to be assigned to the view and it will create a ViewModel behind the scenes for you. This saves a little typing.
+
+66
+--
+
+`form()`:  a view helper
+
+67
+--
+`openTag()`: opens the form
+
+68
+--
+`closeTag()`: closes the form.
+
+69
+--
+`formRow()`: for each element with a label
+
+70
+--
+`formHidden()`: for the elements that are standalone
+
+71
+--
+`formSubmit()`: for standalone elements
