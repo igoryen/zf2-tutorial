@@ -42,9 +42,47 @@ class AlbumController extends AbstractActionController {
   }
   // GET: /album/edit
   public function editAction() {
-    
+    $id = (int) $this->params()->fromRoute('id', 0); // 73
+    if (!$id) { // 74
+      return $this->redirect()->toRoute('album', array(
+                'action' => 'add'
+      ));
+    }
+
+    // Get the Album with the specified id.  An exception is thrown
+    // if it cannot be found, in which case go to the index page.
+    try {
+      $album = $this->getAlbumTable()->getAlbum($id); // 75
+    } catch (\Exception $ex) { // 76
+      return $this->redirect()->toRoute('album', array(
+                'action' => 'index'
+      ));
+    }
+
+    $form = new AlbumForm();
+    $form->bind($album); // 77
+    $form->get('submit')->setAttribute('value', 'Edit');
+
+    $request = $this->getRequest();
+    if ($request->isPost()) {
+      $form->setInputFilter($album->getInputFilter());
+      $form->setData($request->getPost());
+
+      if ($form->isValid()) {
+        $this->getAlbumTable()->saveAlbum($album); // 78
+
+        // Redirect to list of albums
+        return $this->redirect()->toRoute('album');
+      }
+    }
+
+    return array(
+      'id' => $id,
+      'form' => $form,
+    );
   }
-   //GET: /album/delete
+
+  //GET: /album/delete
   public function deleteAction() {
     
   }
