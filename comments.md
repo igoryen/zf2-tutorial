@@ -361,3 +361,10 @@ Note that Zend Framework 2 also allows you to simply return an array containing 
 71
 --
 `formSubmit()`: for standalone elements
+
+72
+--
+An alternative (simpler) way to render the form.  
+It uses the bundled view helper `formCollection`.   
+This will iterate over the form structure, calling the appropriate label, element and error view helpers for each element.  
+However, you still have to wrap `formCollection($form)` with `openTag()` and `closeTag()`. This helps reduce the complexity of your view script in situations where the default HTML rendering of the form is acceptable.
