@@ -85,9 +85,13 @@ Our `Album` entity object is a simple PHP class.
 
 14
 --
+The default **hydrator** object (`Zend\Stdlib\Hydrator\ArraySerializable`) expects to find two methods in the model: `getArrayCopy()` and `exchangeArray()`.    
+ 
 The `exchangeArray()` method:  
+
 -  it is used in order to work with Zend\Db’s `TableGateway` class.   
-This method simply copies the data from the passed in array to our entity’s properties. We will add an input filter for use with our form later.
+- This method simply copies the data from the passed in array to our entity’s properties. We will add an input filter for use with our form later.
+
 
 15
 --
@@ -368,3 +372,46 @@ An alternative (simpler) way to render the form.
 It uses the bundled view helper `formCollection`.   
 This will iterate over the form structure, calling the appropriate label, element and error view helpers for each element.  
 However, you still have to wrap `formCollection($form)` with `openTag()` and `closeTag()`. This helps reduce the complexity of your view script in situations where the default HTML rendering of the form is acceptable.
+
+73
+--
+Look for the `id` that is in the matched route.  
+`params`: a controller plugin.  
+
+- It provides a convenient way to retrieve parameters from the matched route.   
+- It is used to retrieve the `id` from the route we created in the modules’ `module.config.php`.   
+
+
+74
+--
+- If the `id` retrieved from the route is zero, then we redirect to the **add** action   
+- If the `id` retrieved from the route is **not** zero, we continue by getting the album entity from the database.
+
+75
+--
+Use the `id` to load the album to be edited.
+
+76
+--
+If the Album with the specified `id` **cannot** be found, then the data access method throws an exception. We catch that exception and re-route the user to the **index** page.
+
+77
+--
+The form’s `bind()` method:  
+it attaches the model to the form.   
+This is used in two ways:
+
+- When displaying the form, the initial values for each element are extracted from the model.  
+- After successful validation in `isValid()`, the data from the form is put back into the model.
+
+78
+--
+As a result of using `bind()` with its hydrator, we do not need to populate the form’s data back into the `$album` as that’s already been done, so we can just call the mappers’ `saveAlbum()` to store the changes back to the database.
+
+79
+--
+Set the title of the page
+
+80
+--
+set the form’s action to the **edit** action
