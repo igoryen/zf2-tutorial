@@ -438,3 +438,7 @@ If the request is not a `POST`
 85
 --
 then we retrieve the correct database record and assign to the view, along with the `id`.
+
+86
+--
+Ensuring that the home page displays the list of albums
