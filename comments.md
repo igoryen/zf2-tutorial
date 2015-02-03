@@ -415,3 +415,26 @@ Set the title of the page
 80
 --
 set the form’s action to the **edit** action
+
+81
+--
+check `isPost()` on the **request** object to determine   
+
+- whether to show the confirmation page 
+- or to delete the album.
+
+82
+--
+use the `AlbumTable` object to delete the row using the `deleteAlbum()` method and then redirect back the list of albums. 
+
+83
+--
+redirect back the list of albums.   
+
+84
+--
+If the request is not a `POST`
+
+85
+--
+then we retrieve the correct database record and assign to the view, along with the `id`.

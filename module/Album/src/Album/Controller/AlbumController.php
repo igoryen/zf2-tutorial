@@ -84,10 +84,32 @@ class AlbumController extends AbstractActionController {
 
   //GET: /album/delete
   public function deleteAction() {
-    
+    $id = (int) $this->params()->fromRoute('id', 0); // 73
+    if (!$id) {
+      return $this->redirect()->toRoute('album');
+    }
+
+    $request = $this->getRequest();
+    if ($request->isPost()) { // 81
+      $del = $request->getPost('del', 'No');
+
+      if ($del == 'Yes') {
+        $id = (int) $request->getPost('id');
+        $this->getAlbumTable()->deleteAlbum($id); // 82
+      }
+
+      // Redirect to list of albums
+      return $this->redirect()->toRoute('album'); // 83
+    }
+
+    // 84
+    return array(
+      'id' => $id,
+      'album' => $this->getAlbumTable()->getAlbum($id) // 85
+    );
   }
-  
-   // 31
+
+  // 31
   public function getAlbumTable() {
     if (!$this->albumTable) {
       $sm = $this->getServiceLocator();
