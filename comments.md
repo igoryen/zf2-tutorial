@@ -616,3 +616,12 @@ The `PostService` will return Models
 116
 --
  This Model file (Post.php) is associated with the interface (PostInterface.php).
+
+117
+--
+some hard-coded content to directly return from our `PostService` class.  
+`$data`- a property which is an array of our Model type (Post). 
+
+118
+--
+Get all the posts and put them each in a separate offset in the `$allPosts` array.
