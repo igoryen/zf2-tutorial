@@ -675,3 +675,26 @@ to register a Service
 it is registered in the `'invokables` because it has no dependencies.  
 `Blog\Service\PostServiceInterface`: the name that the Service listens to   
 `Blog\Service\PostService`: the implementation that the Service points to 
+
+128
+--
+overwrite the **default** `indexAction()` and return the values of our PostService into the view.
+
+129
+--
+`ViewModel` is a class that the `ListController` **imports**.   
+`ViewModel` is what your Controllers will usually return.  
+When returning an instance of a **ViewModel** you’re able to always assign so called **View-Variables**.  
+It's not necessary to return an instance of **ViewModel**. When you return a normal php array it will internally be converted into a **`ViewModel`**. So in short:
+
+	return new ViewModel(array('foo' => 'bar'));
+
+equals
+
+	return array('foo' => 'bar');
+
+
+130
+--
+`'posts'`: a **view-variable** of the `ViewModel` object.  
+its value is the retval of the PostService's `findAllPosts()`.  
