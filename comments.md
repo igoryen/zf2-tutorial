@@ -611,11 +611,14 @@ The task of our **PostService** is to provide us with data of our blog posts. Fo
 
 115
 --
-The `PostService` will return Models
+The class `PostService` is a **'dependency'** of the class `ListController`.  
+Why? Because, in order to function properly, the Blog-Module's `ListController` must somehow interact with our `PostService`.  
+We have to make sure that our `ListController` will always get the appropriate dependency. We do it by defining the dependency inside the `ListController`'s constructor function `__construct()`.  
+The `PostService` will return Models.
 
 116
 --
- This Model file (Post.php) is associated with the interface (PostInterface.php).
+This Model file (Post.php) is associated with the interface (PostInterface.php).
 
 117
 --
@@ -625,3 +628,22 @@ some hard-coded content to directly return from our `PostService` class.
 118
 --
 Get all the posts and put them each in a separate offset in the `$allPosts` array.
+
+119
+--
+The constructor has a required argument.  
+You cannot call this class without passing it an instance of a class that matches our defined `PostServiceInterface`.  
+`ListController` expects to be passed an implementation of the `PostServiceInterface`.
+
+120
+--
+An `invokable` is a class that can be constructed without any arguments, i.e. a class whose constructor has **no arguments**.
+
+121
+--
+A `factory` is a class that creates instances of another class.  
+I.e. a class whose constructor has a required argument.
+
+122
+--
+There must come a call to `Blog\Factory\ListControllerFactory` for this controller name.
