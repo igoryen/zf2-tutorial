@@ -6,9 +6,12 @@ return array(
   
   'service_manager' => array(
     // 120
-    'invokables' => array(
+    //'invokables' => array(
       // 127
-      'Blog\Service\PostServiceInterface' => 'Blog\Service\PostService'
+      //'Blog\Service\PostServiceInterface' => 'Blog\Service\PostService'
+    'factories' => array(
+      // 135
+      'Blog\Service\PostServiceInterface' => 'Blog\Factory\PostServiceFactory'
     )
   ),
   

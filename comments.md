@@ -719,8 +719,10 @@ returns an **array** of objects implementing the `PostInterface`
 
 135
 --
+Introduce `PostMapperInterface` as a dependency for the `PostService`.  
 the constructor takes any implementation of the `PostMapperInterface` interface as a parameter.  
-Thus, this `PostService` will always have a **post mapper** passed as an argument.
+Thus, this `PostService` will always have a **post mapper** passed as an argument.  
+You can't define this service as an `'invokable'` because it has a dependency.  So this service needs a **factory** now.
 
 136
 --
