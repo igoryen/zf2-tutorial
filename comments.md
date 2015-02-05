@@ -182,9 +182,6 @@ The database credentials: username and password
 --
 In order to list the albums, we need to **retrieve** them from the `Album` model and pass them to the view.  
 The **return value** is a `ViewModel` object.  
-It is used to set variables in the view.  
-`ViewModel`'s constructor's first parameter is an array from the action containing data we need. These data are then automatically passed to the view script.  
-The `ViewModel` object also allows us to change the view script that is used, but the default is to use `{controller name}/{action name}`. 
 
 33
 --
@@ -203,11 +200,11 @@ The parameters:
 
 35
 --
-to display album's title
+to display album's **title**
 
 36
 --
-to display album's artist(s)
+to display album's **artist(s)**
 
 37
 --
@@ -238,7 +235,10 @@ as we call the parent’s constructor, we set the **name** of the form.
 
 43
 --
-Create 4 form elements: the **id**, **title**, **artist**, and **submit** button. For each item we set various attributes and options, including the label to be displayed.
+Create 4 form elements: the **id**, **title**, **artist**, and **submit** button. For each item we set various attributes and options, including the label to be displayed.  
+`'name'` - the name of the form's input element  
+`'type'` - the type of the input element  
+`'label'` - the visible label on the button
 
 44
 --
@@ -264,8 +264,10 @@ Instantiate `InputFilter`
 
 49
 --
-add the inputs that we require.  
-We add one input for each property that we wish to filter or validate.
+add/accumulate/collect/fill up the inputs that we require.  
+keep adding one by one into the `inputFilter` bag.  
+We add one input for each property that we wish to filter or validate.  
+
 
 50
 --
@@ -275,7 +277,11 @@ we only need integers in this field, so we add an `Int` filter for it.
 51
 --
 This is a text field  
-Here we need to remove unwanted HTML and unnecessary white space, so we add 2 **filters**: `StripTags` and `StringTrim`
+add 2 **filters** (`StripTags` and `StringTrim`) to remove   
+
+
+- unwanted HTML and 
+- unnecessary white space
 
 
 52
@@ -291,13 +297,13 @@ to report error when the field is left empty
 --
 Filter: `StripTags`  
 	
-- removes unwanted HTML
+- to remove unwanted HTML
  
 55
 --
 Filter: `StringTrim`   
 
-- removes unnecessary white space
+- to remove unnecessary white space
 
 56
 --
@@ -322,7 +328,7 @@ set the posted data to the form
 
 61
 --
-Use the `AlbumForm->isValid()` to check to see if the POSTed data is **valid** 
+if the `POST`ed data is **valid** 
 
 62
 --
@@ -334,12 +340,15 @@ store to the model using `saveAlbum()`.
 
 64
 --
-After we have saved the new `album` row, we use the Redirect controller plugin redirect back to the list of albums.
+redirect back to the list of albums  
+
+- using the Redirect controller plugin
+- after we have saved the new `album` row
 
 65
 --
 Finally, we return the variables that we want assigned to the view. In this case, just the form object.  
-Note that Zend Framework 2 also allows you to simply return an array containing the variables to be assigned to the view and it will create a ViewModel behind the scenes for you. This saves a little typing.
+Note that Zend Framework 2 also allows you to simply return an array containing the variables to be assigned to the view and it will create a `ViewModel` behind the scenes for you. This saves a little typing.
 
 66
 --
@@ -369,7 +378,7 @@ Note that Zend Framework 2 also allows you to simply return an array containing 
 72
 --
 An alternative (simpler) way to render the form.  
-It uses the bundled view helper `formCollection`.   
+It uses the **bundled** view helper `formCollection`.   
 This will iterate over the form structure, calling the appropriate label, element and error view helpers for each element.  
 However, you still have to wrap `formCollection($form)` with `openTag()` and `closeTag()`. This helps reduce the complexity of your view script in situations where the default HTML rendering of the form is acceptable.
 
@@ -385,11 +394,13 @@ Look for the `id` that is in the matched route.
 74
 --
 - If the `id` retrieved from the route is zero, then we redirect to the **add** action   
-- If the `id` retrieved from the route is **not** zero, we continue by getting the album entity from the database.
+
 
 75
 --
-Use the `id` to load the album to be edited.
+Use the `id` to load the album to be edited.  
+
+- If the `id` retrieved from the route is **not** zero, we continue by getting the album entity from the database.
 
 76
 --
@@ -437,8 +448,42 @@ If the request is not a `POST`
 
 85
 --
-then we retrieve the correct database record and assign to the view, along with the `id`.
+then retrieve the correct database record and assign to the view, along with the `id`.
 
 86
 --
 Ensuring that the home page displays the list of albums
+
+87
+--
+
+88
+--
+`ViewModel` is used to set variables in the view.  
+`ViewModel`'s constructor's first parameter is an array from the action containing data we need. These data are then automatically passed to the view script.  
+The `ViewModel` object also allows us to change the view script that is used, but the default is to use `{controller name}/{action name}`. 
+
+89
+--
+The **Submit** button will have `value` of **Edit**.
+
+90
+--
+`inputFilter` is like a a bag.  
+to put inputs (data from the form's input elements)  
+
+91
+--
+`TableGateway` is like Habib's `DBHelper`
+
+92
+--
+if the album's **id** is not zero
+
+93
+--
+if `getAlbum()` returns `TRUE`, after we pass the album's `id` to `getAlbum()`
+
+94
+--
+if `getAlbum()` returns `FALSE`, after we pass the album's `id` to `getAlbum()`

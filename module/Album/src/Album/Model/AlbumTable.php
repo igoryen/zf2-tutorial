@@ -2,7 +2,7 @@
 
 namespace Album\Model;
 
-use Zend\Db\TableGateway\TableGateway;
+use Zend\Db\TableGateway\TableGateway; // 91
 
 class AlbumTable {
 
@@ -41,11 +41,11 @@ class AlbumTable {
     if ($id == 0) {
       $this->tableGateway->insert($data);
     }
-    else {
-      if ($this->getAlbum($id)) {
+    else { // 92
+      if ($this->getAlbum($id)) { // 93
         $this->tableGateway->update($data, array('id' => $id));
       }
-      else {
+      else { // 94
         throw new \Exception('Album id does not exist');
       }
     }
