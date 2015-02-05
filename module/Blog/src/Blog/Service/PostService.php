@@ -4,6 +4,8 @@
 
 namespace Blog\Service;
 
+use Blog\Model\Post;
+
 // 115
 class PostService implements PostServiceInterface {
 
