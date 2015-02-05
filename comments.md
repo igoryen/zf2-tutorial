@@ -727,3 +727,15 @@ You can't define this service as an `'invokable'` because it has a dependency.  
 136
 --
 use the `postMapper` to get access to the data you want
+
+137
+--
+`'db'`: the configuration key to which `Zend\Db\Adapter\AdapterServiceFactory` listens.   
+`Zend\Db\Adapter\AdapterServiceFactory` is used to create a class that implements `Zend\Db\Adapter\AdapterInterface`.  
+Such a class serves a database connection.  
+The database connection is required to create queries against a database using `Zend\Db\Sql`.
+
+138
+--
+`Zend\Db\Adapter\Adapter`: the name of the Service  
+Calling this Service will now always give back a running instance of the `Zend\Db\Adapter\AdapterInterface` depending on what **driver** we assign.
