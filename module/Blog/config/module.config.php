@@ -3,6 +3,15 @@
 // Filename: /module/Blog/config/module.config.php
 // 97
 return array(
+  
+  'service_manager' => array(
+    // 120
+    'invokables' => array(
+      // 127
+      'Blog\Service\PostServiceInterface' => 'Blog\Service\PostService'
+    )
+  ),
+  
   // 
   'view_manager' => array(
     'template_path_stack' => array(
@@ -17,7 +26,7 @@ return array(
     //)
     // 121
     'factories' => array(
-      'Blog\Controller\List' => 'Blog\Controller\ListControllerFactory' // 122
+      'Blog\Controller\List' => 'Blog\Factory\ListControllerFactory' // 122
     )
   ),
   

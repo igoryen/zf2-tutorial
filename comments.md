@@ -668,3 +668,10 @@ However, we need the real `ServiceManager` to get to our Service-Classes. This i
 `Blog\Service\PostServiceInterface` - the name of the Service to get.  
 This name will return a Service that matches the `PostServiceInterface`.  
 This Service is then passed along to the `ListController` which will directly be returned.
+
+127
+--
+to register a Service   
+it is registered in the `'invokables` because it has no dependencies.  
+`Blog\Service\PostServiceInterface`: the name that the Service listens to   
+`Blog\Service\PostService`: the implementation that the Service points to 
