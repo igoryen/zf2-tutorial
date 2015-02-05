@@ -4,6 +4,7 @@
 
 namespace Blog\Controller;
 
+use Blog\Service\PostServiceInterface;
 use Zend\Mvc\Controller\AbstractActionController; // 109
 
 class ListController extends AbstractActionController {
