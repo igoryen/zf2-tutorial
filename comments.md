@@ -1,7 +1,7 @@
 1
 --
 We put this file, `Module.php`, in the root of the **module** directory (`module/Album`).   
-  We put it here because this is where the `ModuleManager` in Zend Framework 2 will look for it.  
+  We put it here because this is where we want `ModuleManager` in Zend Framework 2 to detect it, and where it will look for it.  
   `ModuleManager` expects to find a class called `Album\Module` within it.   
   It will load and configure a module.  
   That is, the classes within a given module will have the namespace of the module’s name, which is the directory name of the module.  
@@ -43,7 +43,8 @@ This will allow it to find the **view scripts** for the `Album` module that are 
 
 8
 --
-We add the module name to the list of modules, to inform the `ModuleManager` that this new `Album` module exists.
+We add the module name to the list of modules, to inform the `ModuleManager` that this new `Album` module exists.  
+This allows the module to be loaded by ZF2s `ModuleManager`.
 
 
 9
