@@ -647,3 +647,24 @@ I.e. a class whose constructor has a required argument.
 122
 --
 There must come a call to `Blog\Factory\ListControllerFactory` for this controller name.
+
+123
+--
+use `Zend\ServiceManager\FactoryInterface` because **factory classes** within Zend Framework 2 always need to implement it.  
+Implementing this class lets the **ServiceManager** know that the function `createService()` is supposed to be called.
+
+124
+--
+`createService()` actually expects to be passed an instance of the `ServiceLocatorInterface` so the **ServiceManager** will always inject this using DI (Dependency Injection).
+
+125
+--
+set up `$realServiceLocator`.  
+When using a **Factory-Class** that will be called from the `ControllerManager` the **Factory-Class** will actually inject **itself** as the `$serviceLocator`.   
+However, we need the real `ServiceManager` to get to our Service-Classes. This is why we call the function `getServiceLocator()` who will give us the real `ServiceManager`.
+
+126
+--
+`Blog\Service\PostServiceInterface` - the name of the Service to get.  
+This name will return a Service that matches the `PostServiceInterface`.  
+This Service is then passed along to the `ListController` which will directly be returned.
