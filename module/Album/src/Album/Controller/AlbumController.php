@@ -3,7 +3,7 @@
 namespace Album\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
+use Zend\View\Model\ViewModel; // 88
 use Album\Model\Album;
 use Album\Form\AlbumForm;
 
@@ -61,7 +61,7 @@ class AlbumController extends AbstractActionController {
 
     $form = new AlbumForm();
     $form->bind($album); // 77
-    $form->get('submit')->setAttribute('value', 'Edit');
+    $form->get('submit')->setAttribute('value', 'Edit'); // 89
 
     $request = $this->getRequest();
     if ($request->isPost()) {

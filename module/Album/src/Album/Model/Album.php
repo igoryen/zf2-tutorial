@@ -2,7 +2,7 @@
 
 namespace Album\Model;
 
-use Zend\InputFilter\InputFilter;
+use Zend\InputFilter\InputFilter; // 90
 use Zend\InputFilter\InputFilterAwareInterface; // 44
 use Zend\InputFilter\InputFilterInterface;
 
@@ -86,7 +86,7 @@ class Album implements InputFilterAwareInterface { // 44
       ));
 
       $this->inputFilter = $inputFilter;
-    }
+    } // if(!$this->inputFilter)
 
     return $this->inputFilter;
   }
