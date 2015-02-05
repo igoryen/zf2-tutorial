@@ -3,12 +3,28 @@
 // Filename: /module/Blog/config/module.config.php
 // 97
 return array(
+  // 137
+  'db' => array(
+    'driver' => 'Pdo',
+    'username' => 'root', //edit this
+    'password' => '1111', //edit this
+    'dsn' => 'mysql:dbname=blog;host=localhost',
+    'driver_options' => array(
+      \PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''
+    )
+  ),
   
   'service_manager' => array(
     // 120
-    'invokables' => array(
+    //'invokables' => array(
       // 127
-      'Blog\Service\PostServiceInterface' => 'Blog\Service\PostService'
+      //'Blog\Service\PostServiceInterface' => 'Blog\Service\PostService'
+    'factories' => array(
+      // 135
+      //'Blog\Service\PostServiceInterface' => 'Blog\Factory\PostServiceFactory'
+      'Blog\Service\PostServiceInterface' => 'Blog\Service\Factory\PostServiceFactory',
+      // 138
+      'Zend\Db\Adapter\Adapter'           => 'Zend\Db\Adapter\AdapterServiceFactory'
     )
   ),
   
