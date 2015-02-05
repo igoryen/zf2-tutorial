@@ -698,3 +698,21 @@ equals
 --
 `'posts'`: a **view-variable** of the `ViewModel` object.  
 its value is the retval of the PostService's `findAllPosts()`.  
+
+131
+--
+`PostMapperInterface`: the interface that will define how our database interaction should function without describing the actual implementation.  
+**Mapper-Layer** - a *database abstraction* layer in front of the actual database access that abstracts the database interaction.  
+Basically what we do is to create a new Interface. This interface then defines how our database interaction should function but the actual implementation is left out. But let’s stop the theory and go over to code this thing.
+
+132
+--
+`Blog\Mapper`: a namespace name
+
+133
+--
+returns a **single** object implementing the `PostInterface`.
+
+134
+--
+returns an **array** of objects implementing the `PostInterface`
