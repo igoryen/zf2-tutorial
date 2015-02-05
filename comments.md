@@ -608,3 +608,11 @@ The task of our **PostService** is to provide us with data of our blog posts. Fo
 114
 --
 `findPost($id)` to return the post matching the given identifier `$id`
+
+115
+--
+The `PostService` will return Models
+
+116
+--
+ This Model file (Post.php) is associated with the interface (PostInterface.php).
