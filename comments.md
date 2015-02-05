@@ -594,3 +594,17 @@ If the **ListController**  does not implement the `ZendStdlibDispatchableInterfa
 let the application know where to look for view files  
 With this you can not only ship view files for your module but you can also overwrite view files from other modules.
 
+112
+--
+We define a `PostServiceInterface`.  
+It will be used to create a `PostService`.   
+Interfaces are a good way to ensure that other programmers can easily build extensions for our Services using their own implementations. In other words, they can write Services that have the same function names but internally do completely different things but have the same specified result.  
+The task of our **PostService** is to provide us with data of our blog posts. For now we are going to focus on the read-only side of things. We will define a function that will give us all posts and we will define a function that will give us a single post.
+
+113
+--
+`findAllPosts()` to return all posts 
+
+114
+--
+`findPost($id)` to return the post matching the given identifier `$id`
