@@ -488,3 +488,109 @@ if `getAlbum()` returns `TRUE`, after we pass the album's `id` to `getAlbum()`
 94
 --
 if `getAlbum()` returns `FALSE`, after we pass the album's `id` to `getAlbum()`
+
+95
+--
+**Method purpose**: to return router configuration  
+
+to add a route to our application so that our module can be accessed through the following URL:  
+
+- `localhost:8080/blog` 
+
+**Method return value**: either an array or a `Traversable` object.   
+(This function is defined in the `ConfigProviderInterface` although actually implementing this interface in the module class is optional.) 
+
+96
+--
+Directly returning an array is worse than returning a file.
+
+97
+--
+A **configuration file** for `Blog\Module::getConfig()`.  
+
+98
+--
+Configuration files can become quite big though and keeping everything inside the `getConfig()` function won’t be optimal. To help keep our project organized we’re going to put our array configuration in a separate file at this path. 
+
+99
+--
+These lines open the configuration for the `RouteManager`
+
+100
+--
+Open configuration for all possible routes
+
+101
+--
+Define a new route.  
+`'post'` - the new route's name 
+
+102
+--
+Define the new route's type
+`'type'` - the new route's type's name.   
+
+- Here it is `"Zend\Mvc\Router\Http\Literal"`, which is basically just a **string**
+
+103
+--
+Configuring the route
+
+104
+--
+`route` - the URI.  
+Here we listen to `'/blog'`.
+
+105
+--
+When the route `'/blog'` is matched,
+
+- the default **controller** is `'Blog\Controller\List'`
+- the default **action** to be called is `'index'` 
+
+106
+--
+to define `Blog\Controller\List`   
+as an **alias** for the `'Blog\Controller\ListController'`  
+(i.e. `ListController` under the **namespace** `Blog\Controller`). 
+
+107
+--
+- to configure **autoloading** for the Blog module.  
+- to provide  configuration for the `Zend\Loader\StandardAutoloader`.   
+- to tell the app **where** to find the class it needs to load.   
+- to tell the app that classes in `__NAMESPACE__ (Blog)` can be found inside `__DIR__ . '/src/' . __NAMESPACE__ (/module/Blog/src/Blog)`.  
+
+**Autoloading** - a process to allow PHP to automatically load classes on demand.
+
+(This function is defined in the `AutoloaderProviderInterface`, although the presence of the function is enough, actually implementing the interface is optional.)
+
+108
+--
+The `Zend\Loader\StandardAutoloader` 
+
+- it uses a PHP community driven standard called **PSR-0** <https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md>`_.   
+- Amongst other things, the **PSR-0** standard defines a way for PHP to map class names to the file system.   
+- So with this configured, the application knows that our `Blog\Controller\ListController` class should exist at `/module/Blog/src/Blog/Controller/ListController.php`.
+
+109
+--
+
+We use `AbstractActionController` because ZendFramework uses it to provide some base controller implementation of  `ZendStdlibDispatchableInterface`.
+
+The **ListController** must implement `ZendStdlibDispatchableInterface` to be able to be **‘dispatched’** (or run) by ZendFramework’s **MVC layer**.   
+If the **ListController**  does not implement the `ZendStdlibDispatchableInterface` we will get the following error:  
+
+- **The requested controller was not dispatchable.**
+
+
+110
+--
+**Q:** Why are **view files** in the `/view` subdirectory, not in `/src`?  
+**A:** Because view files are not PHP class files, but template files for rendering HTML.
+
+111
+--
+let the application know where to look for view files  
+With this you can not only ship view files for your module but you can also overwrite view files from other modules.
+
