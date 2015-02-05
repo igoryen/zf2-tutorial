@@ -716,3 +716,12 @@ returns a **single** object implementing the `PostInterface`.
 134
 --
 returns an **array** of objects implementing the `PostInterface`
+
+135
+--
+the constructor takes any implementation of the `PostMapperInterface` interface as a parameter.  
+Thus, this `PostService` will always have a **post mapper** passed as an argument.
+
+136
+--
+use the `postMapper` to get access to the data you want
