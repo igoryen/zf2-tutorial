@@ -14,17 +14,24 @@ return array(
     )
   ),
   
+//  'service_manager' => array(
+//    // 120
+//    //'invokables' => array(
+//      // 127
+//      //'Blog\Service\PostServiceInterface' => 'Blog\Service\PostService'
+//    'factories' => array(
+//      // 135
+//      //'Blog\Service\PostServiceInterface' => 'Blog\Factory\PostServiceFactory,'
+//    )
+//  ),
+  
   'service_manager' => array(
-    // 120
-    //'invokables' => array(
-      // 127
-      //'Blog\Service\PostServiceInterface' => 'Blog\Service\PostService'
     'factories' => array(
-      // 135
-      //'Blog\Service\PostServiceInterface' => 'Blog\Factory\PostServiceFactory'
-      'Blog\Service\PostServiceInterface' => 'Blog\Service\Factory\PostServiceFactory',
+      // 140
+      'Blog\Mapper\PostMapperInterface'   => 'Blog\Factory\ZendDbSqlMapperFactory',
+      'Blog\Service\PostServiceInterface' => 'Blog\Factory\PostServiceFactory',
       // 138
-      'Zend\Db\Adapter\Adapter'           => 'Zend\Db\Adapter\AdapterServiceFactory'
+      'Zend\Db\Adapter\Adapter'           => 'Zend\Db\Adapter\AdapterServiceFactory',
     )
   ),
   

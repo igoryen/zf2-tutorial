@@ -739,3 +739,42 @@ The database connection is required to create queries against a database using `
 --
 `Zend\Db\Adapter\Adapter`: the name of the Service  
 Calling this Service will now always give back a running instance of the `Zend\Db\Adapter\AdapterInterface` depending on what **driver** we assign.
+
+139
+--
+Use **constructor-injection** to inject a working implementation of the `AdapterInterface` which will enable `Zend\Db\Sql` to function.
+
+140
+--
+ we call the Service `Blog\Mapper\PostMapperInterface` to get a mapper 
+
+141
+--
+to get a dump of some Result object.  
+The Result object appears to have no data in it (which is a faulty assumption).
+
+142
+--
+To pass the Result object over into a `ResultSet` object in order to access the data stored within the Result object.   
+The meaning of some properties of the Result object:  
+`["count":protected]`: shows the number of rows in the database.   
+`["count":protected] => int(5)`: 5 rows  
+`["returnType":protected]`: shows the type of all returned database entries.  
+`["returnType":protected] => string(11) "arrayobject"`: they will be returned as an `ArrayObject`, not as `PostInterface` objects as `PostMapperInterface` requires.
+
+143
+--
+`HydratingResultSet(A, B)`: **"hydrates"** (увлажняет) the given data into a provided object.    
+**`A`**: the **hydrator** that will be used (here: `ClassMethods()`)  
+**`B`**: the object to "hydrate" into (here: `Post()`).   
+**hydrator** (гидратор) - an object that changes any sort of data from one format to another.     
+`ClassMethods()` uses the `setter` and `getter` functions of the **Post** model.   `HydratingResultSet` is used instead of a normal `ResultSet`.  
+If you tell the `HydratingResultSet` to use the database data to create Post objects for us, then it will do exactly this. 
+
+144
+--
+return the initialized `HydratingResultSet` directly, instead of dumping the `$result` variable.
+
+145
+--
+return an empty array if the return value is not an instance of a `ResultInterface`. 

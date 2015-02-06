@@ -21,7 +21,7 @@ class ListControllerFactory implements FactoryInterface {
   public function createService(ServiceLocatorInterface $serviceLocator) {
     $realServiceLocator = $serviceLocator->getServiceLocator(); // 125
     $postService = $realServiceLocator->get('Blog\Service\PostServiceInterface'); // 126
-
+    
     return new ListController($postService);
   }
 
