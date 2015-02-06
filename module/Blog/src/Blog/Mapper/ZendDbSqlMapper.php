@@ -11,6 +11,7 @@ use Zend\Db\Adapter\Driver\ResultInterface;
 use Zend\Db\ResultSet\HydratingResultSet;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\Sql\Sql;
+use Zend\Stdlib\Hydrator\HydratorInterface;
 
 class ZendDbSqlMapper implements PostMapperInterface {
 
@@ -20,11 +21,29 @@ class ZendDbSqlMapper implements PostMapperInterface {
   protected $dbAdapter;
 
   /**
+   * @var \Zend\Stdlib\Hydrator\HydratorInterface
+   */
+  protected $hydrator;
+
+  /**
+   * @var \Blog\Model\PostInterface
+   */
+  protected $postPrototype;
+
+  /**
    * @param AdapterInterface  $dbAdapter
+   * @param HydratorInterface $hydrator
+   * @param PostInterface    $postPrototype
    */
   // 139
-  public function __construct(AdapterInterface $dbAdapter) {
-    $this->dbAdapter = $dbAdapter;
+  public function __construct(
+    AdapterInterface  $dbAdapter,
+    HydratorInterface $hydrator,
+    PostInterface     $postPrototype) {
+    
+    $this->dbAdapter      = $dbAdapter;
+    $this->hydrator       = $hydrator;
+    $this->postPrototype  = $postPrototype;
   }
 
   /**
@@ -67,9 +86,8 @@ class ZendDbSqlMapper implements PostMapperInterface {
     if ($result instanceof ResultInterface && $result->isQueryResult()) {
       // 143
       $resultSet = new HydratingResultSet(
-              new \Zend\Stdlib\Hydrator\ClassMethods(), 
-              new \Blog\Model\Post()
-              );
+              $this->hydrator, 
+              $this->postPrototype);
 
       return $resultSet->initialize($result); // 144
     }
