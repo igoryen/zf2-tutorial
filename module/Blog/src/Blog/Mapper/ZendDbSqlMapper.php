@@ -54,6 +54,25 @@ class ZendDbSqlMapper implements PostMapperInterface {
    */
   public function find($id) {
     
+    $sql = new Sql($this->dbAdapter);
+    $select = $sql->select('posts');
+    $select->where(array('id = ?' => $id)); // 146
+
+    $stmt = $sql->prepareStatementForSqlObject($select);
+    $result = $stmt->execute();
+
+    if ($result instanceof ResultInterface 
+            && $result->isQueryResult() 
+            && $result->getAffectedRows() // 147
+        ) {
+      
+      return $this->hydrator->hydrate(
+              $result->current(), 
+              $this->postPrototype // 148
+              );
+    }
+    // 149
+    throw new \InvalidArgumentException("Blog with given ID:{$id} not found.");
   }
 
   /**

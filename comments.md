@@ -778,3 +778,21 @@ return the initialized `HydratingResultSet` directly, instead of dumping the `$r
 145
 --
 return an empty array if the return value is not an instance of a `ResultInterface`. 
+
+146
+--
+`where()`: a function of the `Sql` object.  
+to add a condition to the query to only select one row.
+
+147
+--
+`getAffectedRows()`: to check if the `$result` has a row in it.
+
+148
+--
+hydrate the return statement using the injected hydrator into the prototype that has also been injected.
+
+149
+--
+if no row is found, throw an `\InvalidArgumentException` so that the application will easily be able to handle the scenario.
+ 
