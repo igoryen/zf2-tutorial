@@ -9,7 +9,7 @@ use Zend\Mvc\Controller\AbstractActionController; // 109
 use Zend\View\Model\ViewModel; // 129
 
 class ListController extends AbstractActionController {
-
+  
   /**
    * @var \Blog\Service\PostServiceInterface
    */
