@@ -54,24 +54,61 @@ return array(
   ),
   
   // 99
+//  'router' => array(
+//    // 100
+//    'routes' => array(
+//      // 101
+//      'post' => array(
+//        // 102
+//        'type' => 'literal',
+//        // 103
+//        'options' => array(
+//          // 104
+//          'route' => '/blog',
+//          // 105
+//          'defaults' => array(
+//            'controller' => 'Blog\Controller\List',
+//            'action' => 'index',
+//          )
+//        )
+//      )
+//    )
+//  ) // end 99
+
   'router' => array(
-    // 100
     'routes' => array(
-      // 101
-      'post' => array(
-        // 102
+      // 154
+      'blog' => array(
+
         'type' => 'literal',
-        // 103
+
         'options' => array(
-          // 104
-          'route' => '/blog',
-          // 105
+          'route'    => '/blog',
           'defaults' => array(
-            'controller' => 'Blog\Controller\List',
-            'action' => 'index',
-          )
-        )
-      )
-    )
-  )
-);
+            'controller' => 'Blog\Controller\List', // 157
+            'action'     => 'index',
+          ), // defaults
+        ), // options
+
+        'may_terminate' => true,
+
+        'child_routes'  => array(
+          'detail' => array(
+            'type' => 'segment',
+            'options' => array(
+              'route'    => '/:id', // 155
+              'defaults' => array(
+                'action' => 'detail' // 158
+              ), // defaults
+              'constraints' => array(
+                'id' => '[1-9]\d*' // 156
+              ) // constraints
+            ) // options
+          ) // detail
+        ) // child_routes
+
+      ) // blog
+    ) // routes
+  ) // router
+
+); // array
