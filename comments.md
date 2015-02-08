@@ -867,3 +867,34 @@ in`/config/application.config.php` in the `'modules'` array.
 point to the same database.   
 Why indicate the same database in 2 locations?  
 **A:** ???
+
+154
+--
+set up a new route that we use to display a **single** blog entry. 
+
+155
+--
+assign a parameter called `id` 
+
+156
+--
+`'id' => '[1-9]\d*'` 	
+the `id` parameter needs to be a positive digit excluding 0. 
+
+157
+--
+The "parent" route, calls the `ListController.php`
+
+158
+--
+`'action' => 'detail'`:   
+The "parent" route will call the `ListController.php`   
+The "child" route will call `ListController.php::detailAction()`
+
+159
+--
+to pass a single `Blog` class object to `ViewModel` 
+
+160
+--
+If an invalid post is requested (whose ID doesn't exist in the DB),  redirect the user to the **post overview**. 
