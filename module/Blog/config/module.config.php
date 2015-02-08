@@ -3,12 +3,12 @@
 // Filename: /module/Blog/config/module.config.php
 // 97
 return array(
-  // 137
+  // 137, 152
   'db' => array(
     'driver' => 'Pdo',
     'username' => 'root', //edit this
     'password' => '1111', //edit this
-    'dsn' => 'mysql:dbname=blog;host=localhost',
+    'dsn' => 'mysql:dbname=blog;host=localhost', // 153
     'driver_options' => array(
       \PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''
     )

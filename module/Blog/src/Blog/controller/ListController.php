@@ -22,6 +22,7 @@ class ListController extends AbstractActionController {
   
   public function indexAction() {
     // 128
+    //echo "Hi!!!";
     return new ViewModel(array(
       // 130
       'posts' => $this->postService->findAllPosts()

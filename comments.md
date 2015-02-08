@@ -1,10 +1,20 @@
 1
 --
-We put this file, `Module.php`, in the root of the **module** directory (`module/Album`).   
-  We put it here because this is where we want `ModuleManager` in Zend Framework 2 to detect it, and where it will look for it.  
-  `ModuleManager` expects to find a class called `Album\Module` within it.   
-  It will load and configure a module.  
-  That is, the classes within a given module will have the namespace of the module’s name, which is the directory name of the module.  
+This file, `Module.php`, must be in the root of the **module** directory (`module/Album`, or `module/Blog`).   
+This is where `ModuleManager` in Zend Framework 2 will look for it.  
+`ModuleManager` expects to find a class called `Album\Module` (or `Blog\Module`) within it.   
+It will load and configure a module.  
+That is, the classes within a given module will have the namespace of the **module’s name**, which is the **directory name** of the module.  
+Even if your module doesn’t do anything yet, just having the `Module.php` class allows it to be loaded by ZF2s `ModuleManager`. 
+
+What is a **module**?  
+In short, a **module** is an encapsulated set of features for your application. A **module** 
+
+
+- might add features to the **application** that you can see, like our **Blog** module; 
+- or it might provide background functionality for **other modules** in the application to use, such as interacting with a third party API.
+
+Organizing your code into **modules** makes it easier for you to **re-use** functionality in **other** application, or to use **modules written by the community**.
 2
 --
  `getAutoloaderConfig()` (as well as `getConfig()`) will automatically be called by Zend's `ModuleManager`.  
@@ -78,7 +88,7 @@ It allows us to ensure that the characters within a segment are **as expected**,
 
 12
 --
-to inform the `Album` module about the `Album` controller 
+to inform the `Album` module about the `AlbumController.php` 
 
 13
 --
@@ -171,7 +181,7 @@ this factory, `Zend\Db\Adapter\AdapterServiceFactory`, will tell the `ServiceMan
 
 30
 --
-The database credentials: username and password
+The **database credentials**: username and password
 
 31
 --
@@ -491,7 +501,9 @@ if `getAlbum()` returns `FALSE`, after we pass the album's `id` to `getAlbum()`
 
 95
 --
-**Method purpose**: to return router configuration  
+Our module (`Blog`) has router configuration that it needs to load.  
+This is how you let the Zend's `ModuleManager` know that.   
+**Method purpose**: to return **router configuration**  
 
 to add a route to our application so that our module can be accessed through the following URL:  
 
@@ -502,19 +514,22 @@ to add a route to our application so that our module can be accessed through the
 
 96
 --
-Directly returning an array is worse than returning a file.
+Directly returning an array.  (It's better to return a **file**.)
 
 97
 --
-A **configuration file** for `Blog\Module::getConfig()`.  
+This is a **route configuration file** for `Blog\Module::getConfig()`.  
 
 98
 --
-Configuration files can become quite big though and keeping everything inside the `getConfig()` function won’t be optimal. To help keep our project organized we’re going to put our array configuration in a separate file at this path. 
+The **array configuration** is placed in a separate file (`Module/Blog/config/module.config.php`). This is done to help keep our project organized because **configuration files** can become quite big and keeping everything inside the `getConfig()` function won’t be optimal.  
+
+`__DIR__`: a "magic" constant. It holds the directory of the file.
 
 99
 --
-These lines open the configuration for the `RouteManager`
+These lines open the configuration for the `RouteManager`.  
+This is the route configuration specifically for **Blog** module.
 
 100
 --
@@ -527,10 +542,9 @@ Define a new route.
 
 102
 --
-Define the new route's type
-`'type'` - the new route's type's name.   
-
-- Here it is `"Zend\Mvc\Router\Http\Literal"`, which is basically just a **string**
+Define the new route's type  
+`'type'`: the new route's type's name.   
+`'literal'`: this is `"Zend\Mvc\Router\Http\Literal"` (basically just a **string**)
 
 103
 --
@@ -538,15 +552,16 @@ Configuring the route
 
 104
 --
-`route` - the URI.  
-Here we listen to `'/blog'`.
+`'route'`: the URI.  
+`'/blog'`: the string we listen to.
 
 105
 --
-When the route `'/blog'` is matched,
-
-- the default **controller** is `'Blog\Controller\List'`
-- the default **action** to be called is `'index'` 
+If the route `'/blog'` is matched,  
+`'controller' => 'Blog\Controller\List'`:   
+- call `Blog\Controller\ListController.php` by default      
+`'action' => 'index'`:  
+- call `indexAction()` by default
 
 106
 --
@@ -733,7 +748,7 @@ use the `postMapper` to get access to the data you want
 `'db'`: the configuration key to which `Zend\Db\Adapter\AdapterServiceFactory` listens.   
 `Zend\Db\Adapter\AdapterServiceFactory` is used to create a class that implements `Zend\Db\Adapter\AdapterInterface`.  
 Such a class serves a database connection.  
-The database connection is required to create queries against a database using `Zend\Db\Sql`.
+The database connection is required to **create queries against a database** using the `Zend\Db\Sql` object.
 
 138
 --
@@ -795,4 +810,60 @@ hydrate the return statement using the injected hydrator into the prototype that
 149
 --
 if no row is found, throw an `\InvalidArgumentException` so that the application will easily be able to handle the scenario.
+
+150
+--
+**Q:** What's the difference between `db.local.php` and `global.php`?  
+**A:** `global.php` can do **Global Configuration Override**.   
+`global.php` can be used for **overriding** configuration values from modules, etc.  You would place **values** in here that are agnostic to the environment (i.e. applicable to all environments) and not sensitive to security (i.e. public).
+
+`global.php` will typically be INCLUDED in your source control, therefore it should not have passwords or other sensitive information.
+
+`db.local.php` has `local.php` in its name and therefore it will be ignored by Git (or other source control). 
+
+**Q:** Why have `'dsn'` configured both in `db.local.php` and in `global.php`?  
+**A:** ...   
+
+**Q:** Will `global.php`'s `'dsn'` override `db.local.php`'s `'dsn'`?  
+**A:** ...   
  
+151
+--
+If you add a new module to your application, you have to register the **module's name** here:   
+in`/config/application.config.php` in the `'modules'` array.
+
+152
+--
+`'db'` definition.  
+**Q:** Why define `'db'` in multiple locations:		
+
+
+- in `/config/autoload/global.php`
+- in `/config/autoload/db.local.php`
+- in `/module/Blog/config/module.config.php`
+
+**A:** 
+
+153
+--
+`'dsn'` definition.  
+**Q:** Why define `'dsn'` in different locations:
+
+- in `/config/autoload/global.php` DB is "zf2tutorial": 
+	- `'dsn' => 'mysql:dbname=zf2tutorial;host=localhost'`,
+- in `/config/autoload/db.local.php` DB is "blog": 
+	- `'dsn' => 'mysql:dbname=blog;host=localhost',`
+- in `/module/Blog/config/module.config.php` DB is "blog": 
+	- `'dsn' => 'mysql:dbname=blog;host=localhost',`
+
+**A:** ???   
+
+`/module/Blog/config/module.config.php` is the route configuration file for the **Blog** module. 
+
+
+**Q:** Obviously, both locations -   
+- `/config/autoload/db.local.php` and   
+- `/module/Blog/config/module.config.php`   
+point to the same database.   
+Why indicate the same database in 2 locations?  
+**A:** ???

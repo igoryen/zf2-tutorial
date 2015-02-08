@@ -1,6 +1,7 @@
 <?php
 
 // Filename: /module/Blog/Module.php
+// 1
 
 namespace Blog;
 
