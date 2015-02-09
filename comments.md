@@ -898,3 +898,34 @@ to pass a single `Blog` class object to `ViewModel`
 160
 --
 If an invalid post is requested (whose ID doesn't exist in the DB),  redirect the user to the **post overview**. 
+
+161
+--
+`Fieldset`: a component that contains a reusable set of elements.   
+
+- it used to create the **front-end input** for your **back-end models**. 
+- It is considered good practice to have one `Fieldset` for every **Model** of your application.
+
+The **field-set** component, however, is no Form, meaning 
+
+
+- you will not be able to use a **field-set** without attaching it to the Form-component. 
+- The advantage here is that you have one set of elements that you can re-use for as many Forms as you like without having to re-declare all the inputs for the Model that’s represented by the **field-set**.
+
+162
+--
+Add all the elements we need to the **field-set**.   
+This **field-set** can now be used by as many **forms** as we want.
+
+163
+--
+Add our **field-set** to the form (to use it inside the form)
+
+164
+--
+Add a **submit button** to the form so that the user will be able to submit the data.
+
+165
+--
+`Zend\Form\Form`. The **form component** is the main container for all elements of your web form (`<form>`).   
+You are able to add **single** elements or a **set** of elements in the form of a **field-set**, too.
