@@ -31,10 +31,9 @@ class WriteController extends AbstractActionController {
 
       if ($this->postForm->isValid()) { // 181
         try {
-          // 182
-          $this->postService->savePost($this->postForm->getData());
-          // 183
-          return $this->redirect()->toRoute('blog');
+          //\Zend\Debug\Debug::dump($this->postForm->getData());die(); // 198
+          $this->postService->savePost($this->postForm->getData()); // 182
+          return $this->redirect()->toRoute('blog'); // 183
         } catch (\Exception $e) {
           // Some DB Error happened, log it and let the user know
         }
