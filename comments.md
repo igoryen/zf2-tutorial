@@ -388,10 +388,10 @@ Note that Zend Framework 2 also allows you to simply return an array containing 
 
 72
 --
-An alternative (simpler) way to render the form.  
-It uses the **bundled** view helper `formCollection`.   
-This will iterate over the form structure, calling the appropriate label, element and error view helpers for each element.  
-However, you still have to wrap `formCollection($form)` with `openTag()` and `closeTag()`. This helps reduce the complexity of your view script in situations where the default HTML rendering of the form is acceptable.
+An alternative (simpler) way to render the form using the **bundled** view helper `formCollection`.   
+This will iterate over the form structure, calling the appropriate **label**, **element** and **error view** helpers for each element.  
+However, you still have to wrap `formCollection($form)` with `openTag()` and `closeTag()`.   
+This helps reduce the complexity of your view script in situations where the default HTML rendering of the form is acceptable.
 
 73
 --
@@ -991,3 +991,21 @@ Pass both parameters (**name** and **options**) along to the "parent".
 --
 The **field-set** is assigned a name.   
 These options are passed from the `FormElementManager` when the `PostFieldset` is created.
+
+175
+--
+pass the `PostForm` to the view.  
+
+and have it rendered using the provided **view helpers** from the `Zend\Form` component.
+
+176
+--
+tell the form that it should send its data to the current URL.  
+`setAttribute()` can be used to set methods `POST` and `GET`.  Here it's not explicitely set so the default (`POST`) is used.  
+If desired, it can be set specifically, prior to the `prepare()` call.  
+`$form->setAttribute('method', 'GET');`
+
+177
+--
+tell the form to `prepare()` itself.  
+This triggers a couple of internal things.

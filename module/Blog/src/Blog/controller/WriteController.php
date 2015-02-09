@@ -7,6 +7,7 @@ namespace Blog\Controller;
 use Blog\Service\PostServiceInterface;
 use Zend\Form\FormInterface;
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\View\Model\ViewModel; // 88
 
 class WriteController extends AbstractActionController {
 
@@ -22,7 +23,10 @@ class WriteController extends AbstractActionController {
   }
 
   public function addAction() {
-    
+    // 175
+    return new ViewModel(array(
+      'form' => $this->postForm
+    ));
   }
 
 }

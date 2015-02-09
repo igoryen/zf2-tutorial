@@ -1,2 +1,15 @@
 <!-- Filename: /module/Blog/view/blog/write/add.phtml -->
  <h1>WriteController::addAction()</h1>
+
+<?php
+
+$form = $this->form;
+$form->setAttribute('action', $this->url()); // 176
+$form->prepare(); // 177
+
+echo $this->form()->openTag($form);
+echo "<br>";
+echo $this->formCollection($form); // 72
+echo "<br>";
+echo $this->form()->closeTag();
+
