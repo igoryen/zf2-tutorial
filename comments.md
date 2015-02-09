@@ -929,3 +929,65 @@ Add a **submit button** to the form so that the user will be able to submit the 
 --
 `Zend\Form\Form`. The **form component** is the main container for all elements of your web form (`<form>`).   
 You are able to add **single** elements or a **set** of elements in the form of a **field-set**, too.
+
+166
+--
+Register the **write-controller** factory
+
+167
+--
+The **write-controller factory** (`WriteControllerFactory`) returns the **write-controller** adding the required dependencies within the constructor of the **write-controller**.  
+The required dependencies are `$postService` and `$postInsertForm`.
+
+168
+--
+Access the `FormElementManager` to get access to our `PostForm`.   
+`FormElementManager` should be used to access all forms.   
+Even if the `PostForm` is not registered  in the config files yet, the `FormElementManager` automatically knows about forms that act as `'invokables'`. As long as you have no dependencies you don’t need to register them explicitly.
+
+169
+--
+a **hint** at the type of the dependency (`$postService`) by its interface (`PostServiceInterface`).
+
+170
+--
+This `__construct()` method overrides the eponymous method in `Zend/Form/FieldSet.php`.   
+However we also (**always**) need to call the parent constructor (`parent::__construct()`).  Only then will the **form** be able to get **initiated correctly**.
+
+If the parent constructor call isn't included, you will get this error:
+
+	Fatal error: Call to a member function insert() on a non-object in
+	{libraryPath}/Zend/Form/Fieldset.php on line {lineNumber}
+
+e.g.
+
+	Fatal error: 
+	Call to a member function insert() on null in 
+	C:\aaa\projects\zf2-tutorial\vendor\zendframework\zendframework\
+	library\Zend\Form\Fieldset.php on line 191
+
+The meaning of the error is **"something didn't go right while you were creating your form."**
+
+To have more flexibility we will also include the signature of the `__construct()` function which accepts a couple of parameters.
+
+171
+--
+same as 170.  
+and **field-sets**
+
+172
+--
+The `PostForm`  accepts two **parameters**: 
+
+
+- to give the form a **name** and 
+- to set a couple of **options**. 
+
+173
+--
+Pass both parameters (**name** and **options**) along to the "parent".
+
+174
+--
+The **field-set** is assigned a name.   
+These options are passed from the `FormElementManager` when the `PostFieldset` is created.

@@ -8,7 +8,9 @@ use Zend\Form\Fieldset; // 161
 
 class PostFieldset extends Fieldset {
 
-  public function __construct() {
+  public function __construct($name = null, $options = array()) { // 174
+    
+    parent::__construct($name, $options); // 173
     // 162
     $this->add(array(
       'type' => 'hidden',

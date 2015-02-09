@@ -49,7 +49,8 @@ return array(
     //)
     // 121
     'factories' => array(
-      'Blog\Controller\List' => 'Blog\Factory\ListControllerFactory' // 122
+      'Blog\Controller\List' => 'Blog\Factory\ListControllerFactory', // 122
+      'Blog\Controller\Write' => 'Blog\Factory\WriteControllerFactory', // 166
     )
   ),
   
@@ -93,6 +94,7 @@ return array(
         'may_terminate' => true,
 
         'child_routes'  => array(
+          
           'detail' => array(
             'type' => 'segment',
             'options' => array(
@@ -104,7 +106,19 @@ return array(
                 'id' => '[1-9]\d*' // 156
               ) // constraints
             ) // options
-          ) // detail
+          ), // detail
+
+          'add' => array(
+            'type' => 'literal',
+            'options' => array(
+              'route'    => '/add',
+              'defaults' => array(
+                'controller' => 'Blog\Controller\Write',
+                'action'     => 'add'
+              ) // defaults
+            ) // options
+          ) // add
+
         ) // child_routes
 
       ) // blog
