@@ -26,4 +26,14 @@ interface PostServiceInterface {
    */
   // 114
   public function findPost($id);
+
+  /**
+   * Should save a given implementation of the PostInterface and return it.
+   * If it is an existing Post the Post
+   * should be updated, if it's a new Post it should be created.
+   *
+   * @param  PostInterface $blog
+   * @return PostInterface
+   */
+  public function savePost(PostInterface $blog);
 }

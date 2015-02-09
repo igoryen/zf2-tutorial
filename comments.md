@@ -1009,3 +1009,83 @@ If desired, it can be set specifically, prior to the `prepare()` call.
 --
 tell the form to `prepare()` itself.  
 This triggers a couple of internal things.
+
+178
+--
+Save the current request into a local variable (`$request`).
+
+179
+--
+if the current request is a `POST` request
+
+180
+--
+store the request's `POST` data into the form.
+
+181
+--
+If the form turns out to be valid
+
+182
+--
+try to save the form data through our service (`postService`).
+
+183
+--
+redirect the user to the route `/blog`.  
+If any error occurred at any point we simply display the form again.
+
+184
+--
+extract the `Post` object since we need array data to work with `Insert` and `Update`
+
+185
+--
+Then we remove the `id` from the array since this field is **not wanted**:  
+
+- When we do an **update** of a row, we don’t update the `id` property itself and therefore it isn’t needed. 
+- On the **insert** routine we don’t need an `id` either so we can simply strip it away.
+
+186
+--
+if the **Post** object has an `id` set  
+
+187
+--
+create a new `Update` object
+
+188
+--
+if the **Post** object has **no** `id` set  
+
+189
+--
+create a new `Insert` object.
+
+190
+--
+set the data for the `Update` action
+
+191
+--
+set the data for the `Insert` action
+
+192
+--
+pass the data over to the `Sql` object for the actual query into the database.
+
+193
+--
+if we receive a valid result 
+
+194
+--
+if there has been an `id` generated
+
+195
+--
+set the `id` of the **Post** object
+
+196
+--
+return the `Post` object

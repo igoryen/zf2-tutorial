@@ -23,6 +23,23 @@ class WriteController extends AbstractActionController {
   }
 
   public function addAction() {
+
+    $request = $this->getRequest(); // 178
+
+    if ($request->isPost()) { // 179
+      $this->postForm->setData($request->getPost()); // 180
+
+      if ($this->postForm->isValid()) { // 181
+        try {
+          // 182
+          $this->postService->savePost($this->postForm->getData());
+          // 183
+          return $this->redirect()->toRoute('blog');
+        } catch (\Exception $e) {
+          // Some DB Error happened, log it and let the user know
+        }
+      }
+    }
     // 175
     return new ViewModel(array(
       'form' => $this->postForm
