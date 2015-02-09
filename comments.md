@@ -1089,3 +1089,31 @@ set the `id` of the **Post** object
 196
 --
 return the `Post` object
+
+197
+--
+only update the row matching a given `id` (`'id = ?'`)  
+In the same way it's possible to assign a condition to **update** (or **select**) rows with all entries **higher** than a given `id` (`'id > ?'`)  
+`$action->where(array('id > ?' => $postObject->getId()));`
+
+198
+--
+Do a data-dump of the data coming from the form.   
+That way we can easily notice all changes that the hydrator does.
+
+199
+--
+Assign the hydrator.  
+Tell the field-set (`PostFieldset`) to be using the `ClassMethods` hydrator
+
+200
+--
+assign the object prototype.  
+tell the field-set (`PostFieldset`) that the default object to be returned is our **Blog** model
+ 
+201
+--
+make our `PostFieldset` a "`base_fieldset`".
+A base_fieldset basically tells the form “this form is all about me, don’t worry about other data, just worry about me”. And when the form knows that this fieldset is the real deal, then the form will use the hydrator presented by the fieldset and return the object that we desire. 
+
+Otherwise the form itself doesn’t know that it has to return an object. When the form doesn’t know that it’s supposed to return an object it uses the `ArraySeriazable` hydrator recursively. 
