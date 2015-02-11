@@ -533,11 +533,11 @@ This is the route configuration specifically for **Blog** module.
 
 100
 --
-Open configuration for all possible routes
+`'routes'` - open configuration for all possible routes
 
 101
 --
-Define a new route.  
+Defining a new route.  
 `'post'` - the new route's name 
 
 102
@@ -565,8 +565,7 @@ If the route `'/blog'` is matched,
 
 106
 --
-to define `Blog\Controller\List`   
-as an **alias** for the `'Blog\Controller\ListController'`  
+to define `Blog\Controller\List` as an **alias** for the `'Blog\Controller\ListController'`  
 (i.e. `ListController` under the **namespace** `Blog\Controller`). 
 
 107
@@ -661,7 +660,7 @@ I.e. a class whose constructor has a required argument.
 
 122
 --
-There must come a call to `Blog\Factory\ListControllerFactory` for this controller name.
+There must come a call to `Blog\Factory\ListControllerFactory` for this `ListController`.
 
 123
 --
@@ -737,7 +736,7 @@ returns an **array** of objects implementing the `PostInterface`
 Introduce `PostMapperInterface` as a dependency for the `PostService`.  
 the constructor takes any implementation of the `PostMapperInterface` interface as a parameter.  
 Thus, this `PostService` will always have a **post mapper** passed as an argument.  
-You can't define this service as an `'invokable'` because it has a dependency.  So this service needs a **factory** now.
+You can't define this service as an `'invokable'` because it has a dependency.  So this service needs a **"factory"** now.
 
 136
 --
@@ -761,7 +760,7 @@ Use **constructor-injection** to inject a working implementation of the `Adapter
 
 140
 --
- we call the Service `Blog\Mapper\PostMapperInterface` to get a mapper 
+we call the Service `Blog\Mapper\PostMapperInterface` to get a mapper 
 
 141
 --
@@ -1001,7 +1000,7 @@ and have it rendered using the provided **view helpers** from the `Zend\Form` co
 176
 --
 tell the form that it should send its data to the current URL.  
-`setAttribute()` can be used to set methods `POST` and `GET`.  Here it's not explicitely set so the default (`POST`) is used.  
+`setAttribute()` can be used to set methods `POST` and `GET`.  Here it's not explicitly set so the default (`POST`) is used.  
 If desired, it can be set specifically, prior to the `prepare()` call.  
 `$form->setAttribute('method', 'GET');`
 
@@ -1012,7 +1011,7 @@ This triggers a couple of internal things.
 
 178
 --
-Save the current request into a local variable (`$request`).
+Lay aside (save) the current request into a local variable (`$request`).
 
 179
 --
@@ -1117,3 +1116,23 @@ make our `PostFieldset` a "`base_fieldset`".
 A base_fieldset basically tells the form “this form is all about me, don’t worry about other data, just worry about me”. And when the form knows that this fieldset is the real deal, then the form will use the hydrator presented by the fieldset and return the object that we desire. 
 
 Otherwise the form itself doesn’t know that it has to return an object. When the form doesn’t know that it’s supposed to return an object it uses the `ArraySeriazable` hydrator recursively. 
+
+202
+--
+get the relevant `Post` object from the service identified by the `id` parameter of the route.
+
+203
+--
+bind data to the `Zend\Form` component.   
+We’re able to use an object here because our `PostFieldset` will use the hydrator to display the data coming from the object.
+
+204
+--
+instead of actually doing `$form->getData()` we simply use the previous `$post` variable since it will be **updated** with the **latest data** from the **form** thanks to the **data-binding**.  
+
+**data-binding** - a very handy way (provided by `Zend\Form`) to get data from our database into the **edit** form. 
+
+when providing an edit-form you get the object of interest from your service and **"bind"** it to the form.
+
+205
+--
